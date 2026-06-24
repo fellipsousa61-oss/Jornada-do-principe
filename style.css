@@ -240,7 +240,7 @@ body{
     height: 100%;
     
     /* 🌌 COLOQUE O NOME EXATO DO SEU ARQUIVO DE IMAGEM AQUI: */
-    background-image: url('Fundo\ galaxia.png'); 
+    background-image: url('Fundogalaxia.png'); 
     
     background-size: cover;       /* Faz a imagem preencher a tela inteira sem distorcer */
     background-position: center;  /* Centraliza o fundo na tela */
