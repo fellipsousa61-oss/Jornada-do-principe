@@ -294,7 +294,7 @@ window.addEventListener("resize", () => {
         const currentWidth = infoPanel.classList.contains("expanded") ? 650 : 340;
         focusPlanetCamera(activePlanetElement, currentWidth);
     } else {
-        centerFirstPlanet();
+        //centerFirstPlanet();
     }
 });
 
