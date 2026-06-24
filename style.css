@@ -216,17 +216,42 @@ body{
     color: white;
 }
 
-/* ESPAÇO UNIVERSAL */
-#space{
+/* ESPAÇO UNIVERSAL - MODIFICADO PARA IMAGEM EM AQUARELA (OPÇÃO 2) */
+#space {
     width: 100vw;
     height: 100vh;
     position: relative;
     overflow: hidden;
-    background: radial-gradient(circle at center, #1b1437, #05050a);
+    /* Uma cor escura de segurança caso a imagem demore um segundo a carregar */
+    background-color: #060713; 
     display: flex;
     align-items: center;
     justify-content: flex-start; 
     cursor: grab;
+}
+
+/* Camada da imagem de fundo (Fica fixa enquanto os planetas se movem) */
+#space::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* 🌌 COLOQUE O NOME EXATO DO SEU ARQUIVO DE IMAGEM AQUI: */
+    background-image: url('Fundo\ galaxia.png'); 
+    
+    background-size: cover;       /* Faz a imagem preencher a tela inteira sem distorcer */
+    background-position: center;  /* Centraliza o fundo na tela */
+    background-repeat: no-repeat;
+    
+    /* 💡 DICA: Se a imagem for muito clara e ofuscar os planetas, 
+       diminue a opacidade aqui (ex: 0.5 para 50%). Se quiser total, use 1 */
+    opacity: 0.6; 
+    
+    pointer-events: none;         /* Garante que o fundo não atrapalhe o arrastar do mapa */
+    z-index: 0;                   /* Fica guardado atrás de tudo */
 }
 
 #space:active {
