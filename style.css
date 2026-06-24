@@ -1,0 +1,561 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    display:flex;
+    height:100vh;
+    overflow:hidden;
+    font-family: 'Georgia', serif;
+    background: #060713;
+    position: relative;
+}
+
+/* ESTILIZAÇÃO DA CAPA DO LIVRO */
+#welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #17153b, #060713);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #f5f0bb;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#welcome-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.05);
+}
+
+.welcome-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 20px rgba(245, 240, 187, 0.3);
+}
+
+.welcome-content p {
+    font-size: 1.2rem;
+    color: #c3bef0;
+    margin-bottom: 40px;
+    max-width: 550px;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+#startBtn {
+    padding: 15px 35px;
+    font-size: 1.05rem;
+    font-family: 'Georgia', serif;
+    border: 1px solid #f5f0bb;
+    background: transparent;
+    color: #f5f0bb;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+#startBtn:hover {
+    background: #f5f0bb;
+    color: #060713;
+    box-shadow: 0 0 25px rgba(245, 240, 187, 0.4);
+}
+
+/* DIÁRIO LATERAL DE VIAGEM (Com suporte a expansão fluida) */
+#info-panel{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 340px; /* Largura padrão do resumo */
+    height: 100vh;
+    background: rgba(15, 12, 30, 0.97);
+    color: #f5f0bb;
+    padding: 35px;
+    border-right: 1px solid rgba(245, 240, 187, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 50;
+    transform: translateX(-100%);
+    /* Transiciona tanto o movimento de entrar na tela quanto a mudança de largura */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.6);
+}
+
+#info-panel.show {
+    transform: translateX(0);
+}
+
+/* NOVA CLASSE: Quando a história profunda for aberta */
+#info-panel.expanded {
+    width: 650px; /* Expande para o lado tomando mais espaço */
+}
+
+/* CONTAINER DE CONTEÚDO SCROLLÁVEL DO DIÁRIO */
+.panel-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Estilização da barra de rolagem fina e poética */
+.panel-scroll-content::-webkit-scrollbar {
+    width: 4px;
+}
+.panel-scroll-content::-webkit-scrollbar-thumb {
+    background: rgba(245, 240, 187, 0.25);
+    border-radius: 10px;
+}
+
+/* Estilo do subtítulo e do texto longo interno */
+.panel-scroll-content h3 {
+    font-size: 1.2rem;
+    color: #ffc93c;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.deep-story-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #f0ead6;
+    text-align: justify;
+    font-style: normal;
+}
+
+/* SISTEMA REFEITO DE BOTÕES DO PAINEL LATERAL */
+.panel-btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    margin-top: 5px;
+}
+
+/* Botão Principal de Aprofundar/Voltar (Dourado Estrelado) */
+.primary-btn {
+    border: 1px solid #ffc93c;
+    background: transparent;
+    color: #ffc93c;
+}
+
+.primary-btn:hover {
+    background: #ffc93c;
+    color: #0f0c1e;
+    box-shadow: 0 0 15px rgba(255, 201, 60, 0.3);
+}
+
+/* Botão secundário de Reset do Mapa (Vermelho) */
+.secondary-btn {
+    border: 1px solid #e74c3c;
+    background: transparent;
+    color: #e74c3c;
+}
+
+.secondary-btn:hover {
+    background: #e74c3c;
+    color: white;
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
+}
+
+#info-panel.show {
+    transform: translateX(0);
+}
+
+#info-panel h2{
+    font-size: 1.8rem;
+    border-bottom: 1px solid rgba(245, 240, 187, 0.2);
+    padding-bottom: 12px;
+}
+
+#info-panel p{
+    line-height: 1.7;
+    color: #e2ded0;
+    font-size: 1.05rem;
+}
+
+#info-panel .quote {
+    font-style: italic;
+    color: #ffc93c;
+    margin-top: 10px;
+    border-left: 2px solid #ffc93c;
+    padding-left: 10px;
+}
+
+#resetBtn{
+    margin-top: auto;
+    padding: 12px 20px;
+    border: 1px solid #e74c3c;
+    background: transparent;
+    color: #e74c3c;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+#resetBtn:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+/* ESPAÇO UNIVERSAL */
+#space{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #1b1437, #05050a);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    cursor: grab;
+}
+
+#space:active {
+    cursor: grabbing;
+}
+
+/* PAINEL DE NAVEGAÇÃO (Com origem fixada na esquerda) */
+#solar-panel {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transform-origin: left center; /* Ponto crítico para os limites funcionarem */
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+/* LINHA SEQUENCIAL */
+#journey-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 180vw;
+    min-width: 2200px;
+    position: relative;
+    padding: 0 45vw; /* Margem segura para centralizar as pontas */
+}
+
+#journey-line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-top: 2px dashed rgba(245, 240, 187, 0.25);
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.stage-label {
+    margin-top: 20px;
+    color: rgba(245, 240, 187, 0.5);
+    font-size: 0.9rem;
+    font-style: italic;
+    pointer-events: none;
+    transition: color 0.3s ease;
+}
+
+.stage:hover .stage-label {
+    color: #ffc93c;
+}
+
+/* COMPORTAMENTO DE FLUTUAÇÃO LENTA */
+.planet{
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    animation: float 6s ease-in-out infinite;
+}
+
+.planet:hover {
+    transform: scale(1.2) !important;
+}
+
+/* ESTILOS DOS PLANETAS */
+.b612-planet {
+    width: 130px; height: 130px;
+    background: radial-gradient(circle at 35% 35%, #a3cd9e, #6f9e69 65%, #3b5c36);
+    box-shadow: 0 0 35px rgba(163, 205, 158, 0.2), inset -10px -10px 20px rgba(0,0,0,0.4);
+    animation-delay: 0s;
+}
+
+.the-rose {
+    position: absolute;
+    width: 14px; height: 14px;
+    background: #ff414d;
+    border-radius: 50%;
+    top: 22px; left: 60px;
+    box-shadow: 0 0 15px #ff414d;
+}
+
+.king-planet {
+    width: 65px; height: 65px;
+    background: radial-gradient(circle at 35% 35%, #b08bbb, #6c4a79 65%, #301b38);
+    box-shadow: inset -5px -5px 12px rgba(0,0,0,0.5);
+    animation-delay: 0.8s;
+}
+
+.vain-planet {
+    width: 70px; height: 70px;
+    background: radial-gradient(circle at 35% 35%, #f7d6c8, #d09c85 65%, #6e4635);
+    box-shadow: inset -5px -5px 12px rgba(0,0,0,0.5);
+    animation-delay: 1.6s;
+}
+
+.drunkard-planet {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at 35% 35%, #8e8395, #5a5260 65%, #2a252e);
+    box-shadow: inset -5px -5px 12px rgba(0,0,0,0.6);
+    animation-delay: 2.4s;
+}
+
+.businessman-planet {
+    width: 75px; height: 75px;
+    background: radial-gradient(circle at 35% 35%, #dfba73, #96712b 65%, #4a340e);
+    box-shadow: inset -6px -6px 15px rgba(0,0,0,0.5);
+    animation-delay: 3.2s;
+}
+
+.lamplighter-planet {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle at 35% 35%, #fff3a1, #e0a92b 65%, #634305);
+    box-shadow: inset -4px -4px 10px rgba(0,0,0,0.5), 0 0 25px rgba(255,243,161,0.3);
+    animation-delay: 4s;
+}
+
+.geographer-planet {
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 35% 35%, #e6caa3, #b8976c 65%, #594326);
+    box-shadow: inset -6px -6px 15px rgba(0,0,0,0.5);
+    animation-delay: 4.8s;
+}
+
+.earth-planet {
+    width: 110px; height: 110px;
+    background: radial-gradient(circle at 35% 35%, #9bc5ff, #3a7bd5 65%, #0f3460);
+    box-shadow: inset -8px -8px 18px rgba(0,0,0,0.5), 0 0 20px rgba(58,123,213,0.2);
+    animation-delay: 5.4s;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+/* CONTAINER DE CONTEÚDO SCROLLÁVEL DO DIÁRIO */
+.panel-scroll-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Estilização da barra de rolagem fina e poética */
+.panel-scroll-content::-webkit-scrollbar {
+    width: 4px;
+}
+.panel-scroll-content::-webkit-scrollbar-thumb {
+    background: rgba(245, 240, 187, 0.25);
+    border-radius: 10px;
+}
+
+/* Estilo do subtítulo e do texto longo interno */
+.panel-scroll-content h3 {
+    font-size: 1.2rem;
+    color: #ffc93c;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.deep-story-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #f0ead6;
+    text-align: justify;
+    font-style: normal;
+}
+
+/* SISTEMA REFEITO DE BOTÕES DO PAINEL LATERAL */
+.panel-btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    margin-top: 5px;
+}
+
+/* Botão Principal de Aprofundar/Voltar (Dourado Estrelado) */
+.primary-btn {
+    border: 1px solid #ffc93c;
+    background: transparent;
+    color: #ffc93c;
+}
+
+.primary-btn:hover {
+    background: #ffc93c;
+    color: #0f0c1e;
+    box-shadow: 0 0 15px rgba(255, 201, 60, 0.3);
+}
+
+/* Botão secundário de Reset do Mapa (Vermelho) */
+.secondary-btn {
+    border: 1px solid #e74c3c;
+    background: transparent;
+    color: #e74c3c;
+}
+
+.secondary-btn:hover {
+    background: #e74c3c;
+    color: white;
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
+}
+
+/* --- ESTILIZAÇÃO DOS PLANETAS COM IMAGENS DOS MORADORES --- */
+
+/* Regra geral para todos os planetas aceitarem imagens de fundo */
+.planet {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%; /* Garante que a imagem fique perfeitamente redonda */
+    border: 2px solid rgba(255, 255, 255, 0.1); /* Uma bordinha sutil estelar */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito de hover: quando passar o mouse, o morador brilha mais forte */
+.planet:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+/* Vinculando cada imagem ao seu respectivo planeta através do data-attribute */
+.planet[data-planet="b612"] {
+    background-image: url('Asteroide\ b612.png');
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.3); /* Brilho verdejante */
+}
+
+.planet[data-planet="b325"] {
+    background-image: url('o\ rei.png');
+    box-shadow: 0 0 20px rgba(155, 89, 182, 0.3); /* Brilho púrpura real */
+}
+
+.planet[data-planet="b326"] {
+    background-image: url('O\ Vaidoso\ \(2\).png');
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.3); /* Brilho dourado vaidoso */
+}
+
+.planet[data-planet="b327"] {
+    background-image: url('Bebado.png');
+    box-shadow: 0 0 20px rgba(149, 165, 166, 0.3); /* Brilho sombrio/cinza */
+}
+
+.planet[data-planet="b328"] {
+    background-image: url('Negocios.png');
+    box-shadow: 0 0 20px rgba(211, 84, 0, 0.3); /* Brilho cobre/ambicioso */
+}
+
+.planet[data-planet="b329"] {
+    background-image: url('Acendedor.png');
+    box-shadow: 0 0 25px rgba(243, 156, 18, 0.5); /* Brilho forte de lampião */
+}
+
+.planet[data-planet="b330"] {
+    background-image: url('Geografo.png');
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.3); /* Brilho azul antigo */
+}
+
+/* Para o último planeta (Terra) */
+.planet[data-planet="earth"], .earth-planet {
+    background-image: url('Principe.png');
+    box-shadow: 0 0 30px rgba(52, 152, 219, 0.5); /* Brilho da atmosfera terrestre */
+}
+
+/* --- ADAPTAÇÃO PARA CELULARES (TELA CHEIA IMERSIVA) --- */
+@media (max-width: 768px) {
+    #info-panel {
+        width: 100% !important;
+        height: 60vh; /* O resumo inicial ocupa um pouco mais da metade da tela */
+        top: auto;
+        bottom: 0;
+        left: 0;
+        border-right: none;
+        border-top: 2px solid rgba(245, 240, 187, 0.25);
+        border-top-left-radius: 25px; /* Deixa um cantinho arredondado elegante no resumo */
+        border-top-right-radius: 25px;
+        transform: translateY(100%); /* Esconde para baixo */
+        
+        /* Transição suave para deslizar e também para mudar de tamanho */
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+                    height 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                    border-radius 0.3s ease;
+        padding: 30px 25px;
+        gap: 20px;
+    }
+
+    /* Quando abre o resumo, ele desliza para cima */
+    #info-panel.show {
+        transform: translateY(0);
+    }
+
+    /* MÁGICA DA TELA CHEIA: Quando clica em Viajar na História */
+    #info-panel.expanded {
+        width: 100% !important;
+        height: 100vh; /* Cobre absolutamente 100% da tela do celular! */
+        border-top-left-radius: 0px;  /* Remove o arredondado para preencher tudo */
+        border-top-right-radius: 0px;
+        padding-top: 40px; /* Dá um espacinho extra no topo para respirar */
+    }
+
+    /* Ajuste fino dos botões para o celular */
+    .panel-btn {
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+
+    /* Ajuste dos textos para legibilidade máxima em tela cheia */
+    .panel-scroll-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    
+    .deep-story-text {
+        font-size: 1.05rem; /* Aumentado sutilmente para uma leitura super confortável */
+        line-height: 1.8;
+        padding-bottom: 20px;
+    }
+}

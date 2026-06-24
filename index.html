@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Pequeno Príncipe - Uma Jornada pelas Estrelas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <div class="welcome-content">
+            <h1>🌹 O Pequeno Príncipe</h1>
+            <p>"O essencial é invisível aos olhos."<br>Explore o espaço arrastando a tela ou clicando nos asteroides.</p>
+            <button id="startBtn">Começar a Viagem</button>
+        </div>
+    </div>
+
+    <aside id="info-panel">
+        <h2>✨ Diário de Viagem</h2>
+        <p>Clique em um asteroide da sequência para ler as memórias do Príncipe.</p>
+        <button id="resetBtn">Ver Mapa Inteiro</button>
+    </aside>
+
+    <main id="space">
+        <div id="solar-panel">
+            
+            <div id="journey-line">
+                
+                <div class="stage">
+                    <div id="b612" class="planet b612-planet" data-planet="b612">
+                        <div class="the-rose"></div>
+                    </div>
+                    <span class="stage-label">Asteroide B-612</span>
+                </div>
+
+                <div class="stage">
+                    <div class="planet king-planet" data-planet="b325"></div>
+                    <span class="stage-label">B-325: O Rei</span>
+                </div>
+
+                <div class="stage">
+                    <div class="planet vain-planet" data-planet="b326"></div>
+                    <span class="stage-label">B-326: O Vaidoso</span>
+                </div>
+
+                <div class="stage">
+                    <div class="planet drunkard-planet" data-planet="b327"></div>
+                    <span class="stage-label">B-327: O Bêbado</span>
+                </div>
+
+                <div class="stage">
+                    <div class="planet businessman-planet" data-planet="b328"></div>
+                    <span class="stage-label">B-328: Negócios</span>
+                </div>
+
+                <div class="stage">
+                    <div class="planet lamplighter-planet" data-planet="b329"></div>
+                    <span class="stage-label">B-329: Acendedor</span>
+                </div>
+
+                <div class="stage">
+                    <div class="planet geographer-planet" data-planet="b330"></div>
+                    <span class="stage-label">B-330: Geógrafo</span>
+                </div>
+
+                <div class="stage">
+                    <div class="planet earth-planet" data-planet="earth"></div>
+                    <span class="stage-label">Planeta Terra</span>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
