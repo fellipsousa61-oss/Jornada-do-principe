@@ -277,12 +277,14 @@ planets.forEach(planet => {
 });
 
 function resetView() {
-    currentScale = 1;
-    activePlanetElement = null;
     infoPanel.classList.remove("show");
-    infoPanel.classList.remove("expanded"); // Remove a expansão ao fechar o painel
+    infoPanel.classList.remove("expanded");
+    
+    // Deixamos o 'currentX' em paz para ele continuar exatamente onde estava!
+    currentScale = 1.0; // Apenas tira o zoom
+    
     solarPanel.style.transition = "transform 1.2s cubic-bezier(0.25, 1, 0.5, 1)";
-    centerFirstPlanet();
+    solarPanel.style.transform = `translateX(${currentX}px) scale(${currentScale})`;
 }
 
 window.addEventListener("resize", () => {
