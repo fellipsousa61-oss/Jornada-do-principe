@@ -584,3 +584,97 @@ body{
         padding-bottom: 20px;
     }
 }
+
+/* ==========================================================================
+   SISTEMA DE ESTRELAS CADENTES (DIAGONAL)
+   ========================================================================== */
+
+/* Container que cobre a tela, mas fica atrás dos planetas */
+.shooting-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Garante que não atrapalhe os cliques ou o arrastar */
+    z-index: 1;           /* Fica logo acima do fundo e atrás dos planetas */
+    overflow: hidden;
+}
+
+/* Configuração da cabeça da estrela (ponto brilhante) */
+.shooting-stars span {
+    position: absolute;
+    top: 0;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    /* Brilho ao redor da estrela */
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 
+                0 0 0 8px rgba(255, 255, 255, 0.1), 
+                0 0 20px rgba(255, 255, 255, 1);
+    animation: animate-shoot 3s linear infinite;
+    opacity: 0;
+}
+
+/* Configuração da cauda da estrela (traço brilhante) */
+.shooting-stars span::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px; /* Comprimento da cauda */
+    height: 1px;
+    /* Faz a cauda sumir gradualmente no espaço */
+    background: linear-gradient(90deg, #fff, transparent);
+}
+
+/* --- CONFIGURAÇÕES INDIVIDUAIS (Para que caiam em tempos e lugares diferentes) --- */
+
+/* Estrela 1 */
+.shooting-stars span:nth-child(1) {
+    right: 10%;
+    animation-delay: 0s;
+    animation-duration: 2s;
+}
+
+/* Estrela 2 */
+.shooting-stars span:nth-child(2) {
+    right: 40%;
+    animation-delay: 1.5s;
+    animation-duration: 2.5s;
+}
+
+/* Estrela 3 */
+.shooting-stars span:nth-child(3) {
+    right: 70%;
+    animation-delay: 3.5s;
+    animation-duration: 3s;
+}
+
+/* Estrela 4 */
+.shooting-stars span:nth-child(4) {
+    right: -5%;
+    animation-delay: 5s;
+    animation-duration: 2.2s;
+}
+
+/* --- ANIMAÇÃO DO MOVIMENTO DIAGONAL --- */
+@keyframes animate-shoot {
+    0% {
+        /* Ângulo da queda (-45 graus joga ela em diagonal perfeita) */
+        transform: rotate(-45deg) translateX(0);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1; /* Aparece rapidamente ao começar a cair */
+    }
+    70% {
+        opacity: 1;
+    }
+    100% {
+        /* Anda 1200px para a esquerda/baixo e some */
+        transform: rotate(-45deg) translateX(-1200px);
+        opacity: 0;
+    }
+}
